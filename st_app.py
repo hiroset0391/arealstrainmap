@@ -7,6 +7,16 @@ import matplotlib as mpl
 from PIL import Image
 import datetime
 
+
+# データの準備
+@st.cache_data
+def read_poligonfile(file):
+    return np.load(file).tolist()
+
+polygon = read_poligonfile('polygon.npy')
+
+
+
 strain_min, strain_max = -4e-6, 4e-6
 
 
@@ -73,13 +83,13 @@ lons = lons[idx]
 lats = lats[idx]
 strains = strains[idx]
 
-print(dfin)
 
-Layers = list()
+
+
 r_list = list() 
 g_list = list() 
 b_list = list() 
-
+color = list()
 for i in range(len(lons)):
     lon, lat = lons[i], lats[i]
     df = pd.DataFrame({'lon': [lon], 'lat': [lat]})
@@ -90,48 +100,91 @@ for i in range(len(lons)):
         r_list.append(temp[0])
         g_list.append(temp[1])
         b_list.append(temp[2])
-        
-        
+        color.append([int(temp[0]), int(temp[1]), int(temp[2]), 150]) #'Alpha' は透過度を表す値で、0から255の範囲で指定します。0は完全に透明、255は完全に不透明を意味します。
+
+
+
 Layers = list()
-df = pd.DataFrame(
-{
-        'lon': lons,
-        'lat': lats,
-        'r': r_list,
-        'g': g_list,
-        'b': b_list
-    }
+df = pd.DataFrame({
+    'polygon': list(polygon),
+    'color': list(color)
+})
+
+
+layer = pdk.Layer(
+    'PolygonLayer',
+    df,
+    wireframe=True,
+    get_polygon='polygon',
+    get_fill_color='color',
+    get_line_color=[255,255,255],
+    get_line_width=1,  # 線の太さの基本値
+    get_line_width_units='pixels',  # 線の太さの単位をピクセルに設定
+    lineWidthScale=100,  # 線の太さに乗算されるスケーリング係数
+    pickable=True,
+    auto_highlight=False
 )
 
-color=strains
-color_min = strain_min
-color_max = strain_max
-scat_layer = pdk.Layer(
-        type='ScatterplotLayer',
-        data=df,
-        get_position='[lon, lat]',
-        get_fill_color=['r', 'g', 'b'],
-        get_radius=2000,
-        get_line_color=[0, 0, 0],
-        filled=True,
-        line_width_min_pixels=10,
-        opacity=2,
-    )
-Layers.append(scat_layer)
+# 地図のビューを設定
+view_state = pdk.ViewState(latitude=36.381093, longitude=138.116365, zoom=3.7, bearing=0, pitch=0)
 
-#st.write("### "+currdate.strftime("%Y-%m-%d"))
-st.pydeck_chart(pdk.Deck(
+# レイヤーとビューを使用してdeckを作成
+deck = pdk.Deck(
     map_style='mapbox://styles/mapbox/dark-v10',
-    initial_view_state=pdk.ViewState(
-        latitude=36.381093,
-        longitude=138.116365,
-        zoom=3.7,
-        pitch=0,
-    ),
-    layers=Layers,
-    ))
+    layers=[layer],
+    initial_view_state=view_state
+)
+
+# Streamlitでレンダリング
+st.pydeck_chart(deck)
+
 
 
 col1, col2 = st.columns(2)
 original = Image.open("strain.png")
 col1.image(original, use_column_width=True)
+
+        
+# Layers = list()
+# df = pd.DataFrame(
+# {
+#         'lon': lons,
+#         'lat': lats,
+#         'r': r_list,
+#         'g': g_list,
+#         'b': b_list
+#     }
+# )
+
+# color=strains
+# color_min = strain_min
+# color_max = strain_max
+# scat_layer = pdk.Layer(
+#         type='ScatterplotLayer',
+#         data=df,
+#         get_position='[lon, lat]',
+#         get_fill_color=['r', 'g', 'b'],
+#         get_radius=2000,
+#         get_line_color=[0, 0, 0],
+#         filled=True,
+#         line_width_min_pixels=10,
+#         opacity=2,
+#     )
+# Layers.append(scat_layer)
+
+# #st.write("### "+currdate.strftime("%Y-%m-%d"))
+# st.pydeck_chart(pdk.Deck(
+#     map_style='mapbox://styles/mapbox/dark-v10',
+#     initial_view_state=pdk.ViewState(
+#         latitude=36.381093,
+#         longitude=138.116365,
+#         zoom=3.7,
+#         pitch=0,
+#     ),
+#     layers=Layers,
+#     ))
+
+
+# col1, col2 = st.columns(2)
+# original = Image.open("strain.png")
+# col1.image(original, use_column_width=True)
