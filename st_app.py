@@ -60,7 +60,7 @@ lats = np.array(dfin['lat'])
 area_ref = np.array(dfin['area'])
 
 col1, col2 = st.columns(2)
-year = col1.selectbox('target year', [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023], label_visibility="hidden")
+year = col1.selectbox('target year', [1998,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023], label_visibility="hidden")
 
 initialdate = datetime.datetime(year,1,1)
 enddate = datetime.datetime(year,12,31)
