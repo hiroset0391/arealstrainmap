@@ -71,7 +71,7 @@ dfin = pd.read_csv('area/area'+currdate.strftime("%Y%m%d")+'.csv')
 area = np.array(dfin['area'])
 
 strains = (area-area_ref)/area_ref
-strains[strains!=strains] = 0.0
+#strains[strains!=strains] = 0.0
 
 # idx = np.where(strains==strains)
 # lons = lons[idx]
