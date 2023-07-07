@@ -65,11 +65,13 @@ st.write(year)
 if year==1996:
     initialdate = datetime.datetime(year,3,21)
     enddate = datetime.datetime(year,12,31)
+    currdate = st.slider('target day', min_value=datetime.datetime(1996,3,21), max_value=enddate, value=datetime.datetime(year,1,1), format="YY-MM-DD", label_visibility="hidden")
 else:
     initialdate = datetime.datetime(year,1,1)
     enddate = datetime.datetime(year,12,31)
+    currdate = st.slider('target day', min_value=initialdate, max_value=enddate, value=datetime.datetime(year,1,1), format="YY-MM-DD", label_visibility="hidden")
 
-currdate = st.slider('target day', min_value=initialdate, max_value=enddate, value=datetime.datetime(year,1,1), format="YY-MM-DD", label_visibility="hidden")
+
 
 # dfin = pd.read_csv('arealstrain/arealstrain'+currdate.strftime("%Y%m%d")+'.csv')
 # lons = np.array(dfin['lon'])
