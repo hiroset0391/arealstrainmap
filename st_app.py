@@ -67,21 +67,15 @@ enddate = datetime.datetime(year,12,31)
 currdate = st.slider('target day', min_value=initialdate, max_value=enddate, value=datetime.datetime(year,1,1), format="YY-MM-DD", label_visibility="hidden")
 
 
-
-# dfin = pd.read_csv('arealstrain/arealstrain'+currdate.strftime("%Y%m%d")+'.csv')
-# lons = np.array(dfin['lon'])
-# lats = np.array(dfin['lat'])
-# strains = np.array(dfin['arealstrain'])
-
 dfin = pd.read_csv('area/area'+currdate.strftime("%Y%m%d")+'.csv')
 area = np.array(dfin['area'])
 
 strains = (area-area_ref)/area_ref
 
-idx = np.where(strains==strains)
-lons = lons[idx]
-lats = lats[idx]
-strains = strains[idx]
+# idx = np.where(strains==strains)
+# lons = lons[idx]
+# lats = lats[idx]
+# strains = strains[idx]
 
 
 
