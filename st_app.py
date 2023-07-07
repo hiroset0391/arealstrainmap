@@ -98,7 +98,7 @@ for i in range(len(lons)):
         color.append([int(temp[0]), int(temp[1]), int(temp[2]), 150]) #'Alpha' は透過度を表す値で、0から255の範囲で指定します。0は完全に透明、255は完全に不透明を意味します。
 
 
-
+st.write(len(list(polygon)), len(list(color)))
 Layers = list()
 df = pd.DataFrame({
     'polygon': list(polygon),
