@@ -80,7 +80,7 @@ strains = (area-area_ref)/area_ref
 # lats = lats[idx]
 # strains = strains[idx]
 
-st.write(polygon.shape)
+st.write(len(polygon))
 st.write(strains.shape, len(lons))
 
 
