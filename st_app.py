@@ -72,10 +72,10 @@ area = np.array(dfin['area'])
 
 strains = (area-area_ref)/area_ref
 
-idx = np.where(strains==strains)
-lons = lons[idx]
-lats = lats[idx]
-strains = strains[idx]
+# idx = np.where(strains==strains)
+# lons = lons[idx]
+# lats = lats[idx]
+# strains = strains[idx]
 st.write(strains.shape)
 
 
