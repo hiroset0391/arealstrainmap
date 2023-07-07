@@ -79,6 +79,8 @@ strains = (area-area_ref)/area_ref
 # lons = lons[idx]
 # lats = lats[idx]
 # strains = strains[idx]
+
+st.write(polygon.shape)
 st.write(strains.shape, len(lons))
 
 
