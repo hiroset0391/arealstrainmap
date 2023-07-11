@@ -84,7 +84,7 @@ idx = np.where(strains==strains)
 lons = lons[idx]
 lats = lats[idx]
 strains = strains[idx]
-
+polygon = polygon[idx]
 
 
 
