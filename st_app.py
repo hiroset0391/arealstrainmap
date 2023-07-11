@@ -75,7 +75,7 @@ area = np.array(dfin['area'])
 
 
 st.write(len(polygon))
-st.write(area_ref.shape, area.shape, len(lons))
+
 
 strains = (area-area_ref)/area_ref
 #strains[strains!=strains] = 0.0
@@ -105,8 +105,8 @@ for i in range(len(lons)):
         g_list.append(temp[1])
         b_list.append(temp[2])
         color.append([int(temp[0]), int(temp[1]), int(temp[2]), 150]) #'Alpha' は透過度を表す値で、0から255の範囲で指定します。0は完全に透明、255は完全に不透明を意味します。
-    else:
-        color.append([0,0,0,0]) 
+    #else:
+    #    color.append([0,0,0,0]) 
 
 st.write(len(list(polygon)), len(list(color)))
 Layers = list()
