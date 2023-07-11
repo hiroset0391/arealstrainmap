@@ -13,7 +13,7 @@ import os
 def read_poligonfile(file):
     return np.load(file).tolist()
 
-polygon = read_poligonfile('polygon.npy')
+polygon = read_poligonfile('polygon20150101.npy')
 cmap_strain = plt.cm.viridis
 
 
