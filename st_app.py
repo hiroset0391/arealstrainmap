@@ -84,7 +84,10 @@ idx = np.where(strains==strains)
 lons = lons[idx]
 lats = lats[idx]
 strains = strains[idx]
-polygon = list( np.array(polygon)[idx] )
+polygon_plot = list()
+for i in range(len(polygon)):
+    if i in idx[0]:
+        polygon_plot.append(polygon[i])
 
 
 
@@ -108,10 +111,10 @@ for i in range(len(lons)):
     #else:
     #    color.append([0,0,0,0]) 
 
-st.write(len(list(polygon)), len(list(color)))
+st.write(len(list(polygon_plot)), len(list(color)))
 Layers = list()
 df = pd.DataFrame({
-    'polygon': list(polygon),
+    'polygon': list(polygon_plot),
     'color': list(color)
 })
 
