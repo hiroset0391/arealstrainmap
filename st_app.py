@@ -73,7 +73,11 @@ currdate = st.slider('target day', min_value=initialdate, max_value=enddate, val
 dfin = pd.read_csv('area/area'+currdate.strftime("%Y%m%d")+'.csv')
 area = np.array(dfin['area'])
 
-strains = (area-area_ref)/area_ref
+
+st.write(len(polygon))
+st.write(area_ref.shape, area.shape, len(lons))
+
+#strains = (area-area_ref)/area_ref
 #strains[strains!=strains] = 0.0
 
 # idx = np.where(strains==strains)
@@ -81,8 +85,7 @@ strains = (area-area_ref)/area_ref
 # lats = lats[idx]
 # strains = strains[idx]
 
-st.write(len(polygon))
-st.write(strains.shape, len(lons))
+
 
 
 
