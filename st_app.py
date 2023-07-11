@@ -100,8 +100,8 @@ b_list = list()
 color = list()
 
 for i in range(len(lons)):
-    lon, lat = lons[i], lats[i]
-    df = pd.DataFrame({'lon': [lon], 'lat': [lat]})
+    #lon, lat = lons[i], lats[i]
+    #df = pd.DataFrame({'lon': [lon], 'lat': [lat]})
     if strains[i]==strains[i]:
         idx = (strains[i]-st.session_state['strain_min'])/(st.session_state['strain_max']-st.session_state['strain_min']) 
         
