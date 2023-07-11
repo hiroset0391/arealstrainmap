@@ -16,6 +16,7 @@ def read_poligonfile(file):
 polygon = read_poligonfile('polygon20150101.npy')
 cmap_strain = plt.cm.viridis
 
+st.write(len(polygon))
 
 if 'strain_min' not in st.session_state or 'strain_max' not in st.session_state:
     st.session_state['strain_min'] = -1e-6
