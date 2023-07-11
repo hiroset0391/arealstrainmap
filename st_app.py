@@ -76,7 +76,7 @@ dfin = pd.read_csv('area2/area'+currdate.strftime("%Y%m%d")+'.csv')
 area = np.array(dfin['area'])
 
 
-st.write(len(polygon))
+#st.write(len(polygon))
 
 
 strains = (area-area_ref)/area_ref
@@ -125,7 +125,7 @@ for i in range(len(lons)):
             color.append([0,0,0,0])
             
     
-st.write(len(list(polygon_plot)), len(list(color)))
+#st.write(len(list(polygon_plot)), len(list(color)))
 Layers = list()
 df = pd.DataFrame({
     'polygon': list(polygon_plot),
