@@ -77,7 +77,7 @@ area = np.array(dfin['area'])
 st.write(len(polygon))
 st.write(area_ref.shape, area.shape, len(lons))
 
-#strains = (area-area_ref)/area_ref
+strains = (area-area_ref)/area_ref
 #strains[strains!=strains] = 0.0
 
 # idx = np.where(strains==strains)
@@ -89,110 +89,110 @@ st.write(area_ref.shape, area.shape, len(lons))
 
 
 
-# r_list = list() 
-# g_list = list() 
-# b_list = list() 
-# color = list()
+r_list = list() 
+g_list = list() 
+b_list = list() 
+color = list()
 
-# for i in range(len(lons)):
-#     lon, lat = lons[i], lats[i]
-#     df = pd.DataFrame({'lon': [lon], 'lat': [lat]})
-#     if strains[i]==strains[i]:
-#         idx = (strains[i]-st.session_state['strain_min'])/(st.session_state['strain_max']-st.session_state['strain_min']) 
+for i in range(len(lons)):
+    lon, lat = lons[i], lats[i]
+    df = pd.DataFrame({'lon': [lon], 'lat': [lat]})
+    if strains[i]==strains[i]:
+        idx = (strains[i]-st.session_state['strain_min'])/(st.session_state['strain_max']-st.session_state['strain_min']) 
         
-#         temp = cmap_strain(idx, bytes=True)[0:3]
-#         r_list.append(temp[0])
-#         g_list.append(temp[1])
-#         b_list.append(temp[2])
-#         color.append([int(temp[0]), int(temp[1]), int(temp[2]), 150]) #'Alpha' は透過度を表す値で、0から255の範囲で指定します。0は完全に透明、255は完全に不透明を意味します。
-#     else:
-#         color.append([0,0,0,0]) 
+        temp = cmap_strain(idx, bytes=True)[0:3]
+        r_list.append(temp[0])
+        g_list.append(temp[1])
+        b_list.append(temp[2])
+        color.append([int(temp[0]), int(temp[1]), int(temp[2]), 150]) #'Alpha' は透過度を表す値で、0から255の範囲で指定します。0は完全に透明、255は完全に不透明を意味します。
+    else:
+        color.append([0,0,0,0]) 
 
-# st.write(len(list(polygon)), len(list(color)))
-# Layers = list()
-# df = pd.DataFrame({
-#     'polygon': list(polygon),
-#     'color': list(color)
-# })
-
-
-# layer = pdk.Layer(
-#     'PolygonLayer',
-#     df,
-#     wireframe=True,
-#     get_polygon='polygon',
-#     get_fill_color='color',
-#     get_line_color=[255,255,255],
-#     get_line_width=1,  # 線の太さの基本値
-#     get_line_width_units='pixels',  # 線の太さの単位をピクセルに設定
-#     lineWidthScale=100,  # 線の太さに乗算されるスケーリング係数
-#     pickable=True,
-#     auto_highlight=False
-# )
-
-# # 地図のビューを設定
-# view_state = pdk.ViewState(latitude=36.381093, longitude=138.116365, zoom=3.7, bearing=0, pitch=0)
-
-# # レイヤーとビューを使用してdeckを作成
-# deck = pdk.Deck(
-#     map_style='mapbox://styles/mapbox/dark-v10',
-#     layers=[layer],
-#     initial_view_state=view_state
-# )
-
-# # Streamlitでレンダリング
-# st.pydeck_chart(deck)
+st.write(len(list(polygon)), len(list(color)))
+Layers = list()
+df = pd.DataFrame({
+    'polygon': list(polygon),
+    'color': list(color)
+})
 
 
+layer = pdk.Layer(
+    'PolygonLayer',
+    df,
+    wireframe=True,
+    get_polygon='polygon',
+    get_fill_color='color',
+    get_line_color=[255,255,255],
+    get_line_width=1,  # 線の太さの基本値
+    get_line_width_units='pixels',  # 線の太さの単位をピクセルに設定
+    lineWidthScale=100,  # 線の太さに乗算されるスケーリング係数
+    pickable=True,
+    auto_highlight=False
+)
 
-# col1, col2 = st.columns(2)
-# original = Image.open("strain.png")
-# col1.image(original, use_column_width=True)
+# 地図のビューを設定
+view_state = pdk.ViewState(latitude=36.381093, longitude=138.116365, zoom=3.7, bearing=0, pitch=0)
+
+# レイヤーとビューを使用してdeckを作成
+deck = pdk.Deck(
+    map_style='mapbox://styles/mapbox/dark-v10',
+    layers=[layer],
+    initial_view_state=view_state
+)
+
+# Streamlitでレンダリング
+st.pydeck_chart(deck)
 
 
-# with st.expander("change max. and min. values for the colorbar"):
-#     col1, col2 = st.columns(2)
-#     strain_max = float(col1.text_input('max.', '1e-6', label_visibility="hidden")) #col2.number_input('max.', value=4e-6)
 
-#     if col1.button('change'):
+col1, col2 = st.columns(2)
+original = Image.open("strain.png")
+col1.image(original, use_column_width=True)
+
+
+with st.expander("change max. and min. values for the colorbar"):
+    col1, col2 = st.columns(2)
+    strain_max = float(col1.text_input('max.', '1e-6', label_visibility="hidden")) #col2.number_input('max.', value=4e-6)
+
+    if col1.button('change'):
         
 
-#         st.session_state['strain_max'] = strain_max
-#         st.session_state['strain_min'] = -strain_max
+        st.session_state['strain_max'] = strain_max
+        st.session_state['strain_min'] = -strain_max
         
-#         fmax_str = str(abs(st.session_state['strain_max']))
-#         if fmax_str[-4] == 'e':
-#             # 指数部の取得
-#             e = int(fmax_str[-2:])
-#             # 仮数部の桁数の取得
-#             m = fmax_str.index('e') - 1
-#             order_max = e + m
-#             amp_max = float( fmax_str[:fmax_str.index('e')] )
-#         else:
-#             order_max = np.sum(c.isdigit() for c in fmax_str)
+        fmax_str = str(abs(st.session_state['strain_max']))
+        if fmax_str[-4] == 'e':
+            # 指数部の取得
+            e = int(fmax_str[-2:])
+            # 仮数部の桁数の取得
+            m = fmax_str.index('e') - 1
+            order_max = e + m
+            amp_max = float( fmax_str[:fmax_str.index('e')] )
+        else:
+            order_max = np.sum(c.isdigit() for c in fmax_str)
 
         
-#         norm = mpl.colors.Normalize(vmin=-amp_max, vmax=amp_max)
-#         fig, ax = plt.subplots(figsize=(8, 1))
-#         fig.patch.set_facecolor('#313131') 
-#         cbar = mpl.colorbar.ColorbarBase(
-#             ax=ax,
-#             cmap=cmap_strain,
-#             norm=norm,
-#             orientation="horizontal"
-#         )
-#         cbar.set_label(label=r"areal strain ($\times$10$^{-"+str(int(order_max))+r"}$)", size=24, color='white')
-#         cbar.ax.tick_params(labelsize=20, color='white') 
-#         cbar.ax.xaxis.set_tick_params(color='white')
+        norm = mpl.colors.Normalize(vmin=-amp_max, vmax=amp_max)
+        fig, ax = plt.subplots(figsize=(8, 1))
+        fig.patch.set_facecolor('#313131') 
+        cbar = mpl.colorbar.ColorbarBase(
+            ax=ax,
+            cmap=cmap_strain,
+            norm=norm,
+            orientation="horizontal"
+        )
+        cbar.set_label(label=r"areal strain ($\times$10$^{-"+str(int(order_max))+r"}$)", size=24, color='white')
+        cbar.ax.tick_params(labelsize=20, color='white') 
+        cbar.ax.xaxis.set_tick_params(color='white')
 
 
-#         # set colorbar edgecolor 
-#         cbar.outline.set_edgecolor('white')
-#         ax.xaxis.label.set_color('white')
-#         plt.setp(plt.getp(cbar.ax.axes, 'xticklabels'), color='white')
+        # set colorbar edgecolor 
+        cbar.outline.set_edgecolor('white')
+        ax.xaxis.label.set_color('white')
+        plt.setp(plt.getp(cbar.ax.axes, 'xticklabels'), color='white')
 
-#         plt.savefig("strain.png", bbox_inches="tight",) # transparent=True
-#         plt.close()
+        plt.savefig("strain.png", bbox_inches="tight",) # transparent=True
+        plt.close()
 
 
         
