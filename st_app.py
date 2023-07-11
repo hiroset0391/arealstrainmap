@@ -80,10 +80,10 @@ st.write(len(polygon))
 strains = (area-area_ref)/area_ref
 #strains[strains!=strains] = 0.0
 
-# idx = np.where(strains==strains)
-# lons = lons[idx]
-# lats = lats[idx]
-# strains = strains[idx]
+idx = np.where(strains==strains)
+lons = lons[idx]
+lats = lats[idx]
+strains = strains[idx]
 
 
 
