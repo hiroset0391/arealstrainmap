@@ -102,17 +102,29 @@ color = list()
 for i in range(len(lons)):
     #lon, lat = lons[i], lats[i]
     #df = pd.DataFrame({'lon': [lon], 'lat': [lat]})
-    if strains[i]==strains[i]:
-        idx = (strains[i]-st.session_state['strain_min'])/(st.session_state['strain_max']-st.session_state['strain_min']) 
-        
-        temp = cmap_strain(idx, bytes=True)[0:3]
-        r_list.append(temp[0])
-        g_list.append(temp[1])
-        b_list.append(temp[2])
-        color.append([int(temp[0]), int(temp[1]), int(temp[2]), 150]) #'Alpha' は透過度を表す値で、0から255の範囲で指定します。0は完全に透明、255は完全に不透明を意味します。
-    #else:
-    #    color.append([0,0,0,0]) 
-
+    
+    if currdate.strftime("%Y%m%d")=='20150101':
+        if strains[i]==strains[i]:
+            idx = (strains[i]-st.session_state['strain_min'])/(st.session_state['strain_max']-st.session_state['strain_min']) 
+            
+            temp = cmap_strain(idx, bytes=True)[0:3]
+            r_list.append(temp[0])
+            g_list.append(temp[1])
+            b_list.append(temp[2])
+            color.append([int(temp[0]), int(temp[1]), int(temp[2]), 150]) #'Alpha' は透過度を表す値で、0から255の範囲で指定します。0は完全に透明、255は完全に不透明を意味します。
+    else:
+        if strains[i]==strains[i] and strains[i]!=0:
+            idx = (strains[i]-st.session_state['strain_min'])/(st.session_state['strain_max']-st.session_state['strain_min']) 
+            
+            temp = cmap_strain(idx, bytes=True)[0:3]
+            r_list.append(temp[0])
+            g_list.append(temp[1])
+            b_list.append(temp[2])
+            color.append([int(temp[0]), int(temp[1]), int(temp[2]), 150]) #'Alpha' は透過度を表す値で、0から255の範囲で指定します。0は完全に透明、255は完全に不透明を意味します。
+        else:
+            color.append([0,0,0,0])
+            
+    
 st.write(len(list(polygon_plot)), len(list(color)))
 Layers = list()
 df = pd.DataFrame({
