@@ -56,9 +56,11 @@ refday = st.date_input('Select Reference',
         )
 st.write('Reference: ', refday)
 
-dfin = pd.read_csv('area/area'+refday.strftime("%Y%m%d")+'.csv')
+dfin = pd.read_csv('triangle.csv')
 lons = np.array(dfin['lon'])
 lats = np.array(dfin['lat'])
+
+dfin = pd.read_csv('area2/area'+refday.strftime("%Y%m%d")+'.csv')
 area_ref = np.array(dfin['area'])
 
 
@@ -70,7 +72,7 @@ enddate = datetime.datetime(year,12,31)
 currdate = st.slider('target day', min_value=initialdate, max_value=enddate, value=datetime.datetime(year,1,1), format="YY-MM-DD", label_visibility="hidden")
 
 
-dfin = pd.read_csv('area/area'+currdate.strftime("%Y%m%d")+'.csv')
+dfin = pd.read_csv('area2/area'+currdate.strftime("%Y%m%d")+'.csv')
 area = np.array(dfin['area'])
 
 
