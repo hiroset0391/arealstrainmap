@@ -65,7 +65,7 @@ area_ref = np.array(dfin['area'])
 
 
 col1, col2 = st.columns(2)
-selectbox_year_list = [2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023]
+selectbox_year_list = list(reversed([2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023]))
 year = col1.selectbox('target year', selectbox_year_list, label_visibility="hidden", index=selectbox_year_list.index(2015))
 
 initialdate = datetime.datetime(year,1,1)
