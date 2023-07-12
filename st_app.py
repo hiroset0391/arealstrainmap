@@ -50,7 +50,7 @@ if 'strain_min' not in st.session_state or 'strain_max' not in st.session_state:
 st.write("# Areal Strain Map")
 
 refday = st.date_input('Select Reference',
-        min_value=datetime.date(1996, 3, 21),
+        min_value=datetime.date(2005, 1, 1),
         max_value=datetime.date(2023, 1, 1),
         value=datetime.date(2015, 1, 1),
         )
@@ -65,7 +65,7 @@ area_ref = np.array(dfin['area'])
 
 
 col1, col2 = st.columns(2)
-year = col1.selectbox('target year', list(reversed([2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023])), label_visibility="hidden", index=19)
+year = col1.selectbox('target year', list(reversed([2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023])), label_visibility="hidden", index=19)
 
 initialdate = datetime.datetime(year,1,1)
 enddate = datetime.datetime(year,12,31)
