@@ -180,8 +180,10 @@ cmap = plt.get_cmap("viridis")
 mpl.colorbar.Colorbar(
     ax=cbar,
     mappable=mpl.cm.ScalarMappable(norm=norm, cmap=cmap),
-    orientation="vertical",
-).set_label("sample", fontsize=20)
+    orientation="horizontal",
+).set_label("areal strain", fontsize=12)
+fig.set_facecolor((0,0,0,0))
+
 st.pyplot(fig)
 
 with st.expander("change max. and min. values for the colorbar"):
