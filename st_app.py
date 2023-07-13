@@ -175,15 +175,35 @@ col1.image(original, use_column_width=True)
 # st.pyplot(fig)
 
 fig, cbar = plt.subplots(figsize=(5, 1))
-norm = plt.Normalize(vmin=st.session_state['strain_min'], vmax=st.session_state['strain_max'])
-cmap = plt.get_cmap("viridis")
-mpl.colorbar.Colorbar(
-    ax=cbar,
-    mappable=mpl.cm.ScalarMappable(norm=norm, cmap=cmap),
-    orientation="horizontal",
-).set_label("areal strain", fontsize=12)
-#fig.set_facecolor((0,0,0,0))
+fmax_str = str(abs(st.session_state['strain_max']))
+if fmax_str[-4] == 'e':
+    # 指数部の取得
+    e = int(fmax_str[-2:])
+    # 仮数部の桁数の取得
+    m = fmax_str.index('e') - 1
+    order_max = e + m
+    amp_max = float( fmax_str[:fmax_str.index('e')] )
+else:
+    order_max = np.sum(c.isdigit() for c in fmax_str)
+       
+norm = mpl.colors.Normalize(vmin=-amp_max, vmax=amp_max)
+fig, ax = plt.subplots(figsize=(8, 1))
 fig.patch.set_facecolor('#313131') 
+cbar = mpl.colorbar.ColorbarBase(
+    ax=ax,
+    cmap=cmap_strain,
+    norm=norm,
+    orientation="horizontal"
+)
+cbar.set_label(label=r"areal strain ($\times$10$^{-"+str(int(order_max))+r"}$)", size=24, color='white')
+cbar.ax.tick_params(labelsize=20, color='white') 
+cbar.ax.xaxis.set_tick_params(color='white')
+
+
+# set colorbar edgecolor 
+cbar.outline.set_edgecolor('white')
+ax.xaxis.label.set_color('white')
+plt.setp(plt.getp(cbar.ax.axes, 'xticklabels'), color='white')
 st.pyplot(fig)
 
 with st.expander("change max. and min. values for the colorbar"):
