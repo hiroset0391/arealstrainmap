@@ -168,6 +168,12 @@ original = Image.open("strain.png")
 col1.image(original, use_column_width=True)
 
 
+cmap = plt.get_cmap('viridis')
+norm = plt.Normalize(vmin=st.session_state['strain_min'], vmax=st.session_state['strain_max'])
+fig = plt.figure(figsize=(4,4))
+plt.colorbar(plt.cm.ScalarMappable(norm, cmap))
+st.pyplot(fig)
+
 with st.expander("change max. and min. values for the colorbar"):
     col1, col2 = st.columns(2)
     strain_max = float(col1.text_input('max.', '1e-6', label_visibility="hidden")) #col2.number_input('max.', value=4e-6)
