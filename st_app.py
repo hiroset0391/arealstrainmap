@@ -22,27 +22,27 @@ if 'strain_min' not in st.session_state or 'strain_max' not in st.session_state:
     st.session_state['strain_min'] = -1e-6
     st.session_state['strain_max'] = 1e-6
     
-    norm = mpl.colors.Normalize(vmin=-1, vmax=1)
-    fig, ax = plt.subplots(figsize=(8, 1))
-    fig.patch.set_facecolor('#313131') 
-    cbar = mpl.colorbar.ColorbarBase(
-        ax=ax,
-        cmap=cmap_strain,
-        norm=norm,
-        orientation="horizontal"
-    )
-    cbar.set_label(label=r"areal strain ($\times$10$^{-6}$)", size=24, color='white')
-    cbar.ax.tick_params(labelsize=20, color='white') 
-    cbar.ax.xaxis.set_tick_params(color='white')
+    # norm = mpl.colors.Normalize(vmin=-1, vmax=1)
+    # fig, ax = plt.subplots(figsize=(8, 1))
+    # fig.patch.set_facecolor('#313131') 
+    # cbar = mpl.colorbar.ColorbarBase(
+    #     ax=ax,
+    #     cmap=cmap_strain,
+    #     norm=norm,
+    #     orientation="horizontal"
+    # )
+    # cbar.set_label(label=r"areal strain ($\times$10$^{-6}$)", size=24, color='white')
+    # cbar.ax.tick_params(labelsize=20, color='white') 
+    # cbar.ax.xaxis.set_tick_params(color='white')
 
 
-    # set colorbar edgecolor 
-    cbar.outline.set_edgecolor('white')
-    ax.xaxis.label.set_color('white')
-    plt.setp(plt.getp(cbar.ax.axes, 'xticklabels'), color='white')
+    # # set colorbar edgecolor 
+    # cbar.outline.set_edgecolor('white')
+    # ax.xaxis.label.set_color('white')
+    # plt.setp(plt.getp(cbar.ax.axes, 'xticklabels'), color='white')
 
-    plt.savefig("strain.png", bbox_inches="tight",) # transparent=True
-    plt.close()
+    # plt.savefig("strain.png", bbox_inches="tight",) # transparent=True
+    # plt.close()
 
 
 
