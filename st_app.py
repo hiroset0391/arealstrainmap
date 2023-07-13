@@ -212,10 +212,7 @@ with st.expander("change max. and min. values for the colorbar"):
     if col1.button('change'):
         st.session_state['strain_max'] = strain_max
         st.session_state['strain_min'] = -strain_max
-
-        st.session_state['strain_max'] = strain_max
-        st.session_state['strain_min'] = -strain_max
-        
+        st.write('change')
         
 
         
