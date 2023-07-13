@@ -168,10 +168,20 @@ original = Image.open("strain.png")
 col1.image(original, use_column_width=True)
 
 
-cmap = plt.get_cmap('viridis')
+# cmap = plt.get_cmap('viridis')
+# norm = plt.Normalize(vmin=st.session_state['strain_min'], vmax=st.session_state['strain_max'])
+# fig = plt.figure(figsize=(4,4))
+# plt.colorbar(plt.cm.ScalarMappable(norm, cmap))
+# st.pyplot(fig)
+
+fig, cbar = plt.subplots(figsize=(5, 1))
 norm = plt.Normalize(vmin=st.session_state['strain_min'], vmax=st.session_state['strain_max'])
-fig = plt.figure(figsize=(4,4))
-plt.colorbar(plt.cm.ScalarMappable(norm, cmap))
+cmap = plt.get_cmap("viridis")
+mpl.colorbar.Colorbar(
+    ax=cbar,
+    mappable=mpl.cm.ScalarMappable(norm=norm, cmap=cmap),
+    orientation="vertical",
+).set_label("sample", fontsize=20)
 st.pyplot(fig)
 
 with st.expander("change max. and min. values for the colorbar"):
