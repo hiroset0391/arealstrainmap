@@ -182,8 +182,8 @@ mpl.colorbar.Colorbar(
     mappable=mpl.cm.ScalarMappable(norm=norm, cmap=cmap),
     orientation="horizontal",
 ).set_label("areal strain", fontsize=12)
-fig.set_facecolor((0,0,0,0))
-
+#fig.set_facecolor((0,0,0,0))
+fig.patch.set_facecolor('#313131') 
 st.pyplot(fig)
 
 with st.expander("change max. and min. values for the colorbar"):
