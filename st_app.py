@@ -204,7 +204,8 @@ cbar.ax.xaxis.set_tick_params(color='white')
 cbar.outline.set_edgecolor('white')
 ax.xaxis.label.set_color('white')
 plt.setp(plt.getp(cbar.ax.axes, 'xticklabels'), color='white')
-st.pyplot(fig)
+col1, col2 = st.columns(2)
+col1.pyplot(fig)
 
 with st.expander("change max. and min. values for the colorbar"):
     col1, col2 = st.columns(2)
