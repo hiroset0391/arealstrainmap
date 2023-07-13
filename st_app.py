@@ -205,45 +205,14 @@ plt.setp(plt.getp(cbar.ax.axes, 'xticklabels'), color='white')
 col1, col2 = st.columns(2)
 col1.pyplot(fig)
 
-with st.expander("change max. and min. values for the colorbar"):
+with st.expander("change max. and min. values for the colorbar\nPlease press the 'change' button twice"):
     col1, col2 = st.columns(2)
     strain_max = float(col1.text_input('max.', '1e-6', label_visibility="hidden")) #col2.number_input('max.', value=4e-6)
 
     if col1.button('change'):
         st.session_state['strain_max'] = strain_max
         st.session_state['strain_min'] = -strain_max
-        st.write('change', st.session_state['strain_max'])
         
-        fig, cbar = plt.subplots(figsize=(5, 1))
-        fmax_str = str(abs(st.session_state['strain_max']))
-        if fmax_str[-4] == 'e':
-            # 指数部の取得
-            e = int(fmax_str[-2:])
-            # 仮数部の桁数の取得
-            m = fmax_str.index('e') - 1
-            order_max = e + m
-            amp_max = float( fmax_str[:fmax_str.index('e')] )
-        else:
-            order_max = np.sum(c.isdigit() for c in fmax_str)
-            
-        norm = mpl.colors.Normalize(vmin=-amp_max, vmax=amp_max)
-        fig, ax = plt.subplots(figsize=(8, 1))
-        fig.patch.set_facecolor('#313131') 
-        cbar = mpl.colorbar.ColorbarBase(
-            ax=ax,
-            cmap=cmap_strain,
-            norm=norm,
-            orientation="horizontal"
-        )
-        cbar.set_label(label=r"areal strain ($\times$10$^{-"+str(int(order_max))+r"}$)", size=24, color='white')
-        cbar.ax.tick_params(labelsize=20, color='white') 
-        cbar.ax.xaxis.set_tick_params(color='white')
-        # set colorbar edgecolor 
-        cbar.outline.set_edgecolor('white')
-        ax.xaxis.label.set_color('white')
-        plt.setp(plt.getp(cbar.ax.axes, 'xticklabels'), color='white')
-        
-        col1.pyplot(fig)
 
         
 # Layers = list()
