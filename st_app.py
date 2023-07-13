@@ -210,7 +210,8 @@ with st.expander("change max. and min. values for the colorbar"):
     strain_max = float(col1.text_input('max.', '1e-6', label_visibility="hidden")) #col2.number_input('max.', value=4e-6)
 
     if col1.button('change'):
-        
+        st.session_state['strain_max'] = strain_max
+        st.session_state['strain_min'] = -strain_max
 
         st.session_state['strain_max'] = strain_max
         st.session_state['strain_min'] = -strain_max
