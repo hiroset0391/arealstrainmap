@@ -205,7 +205,7 @@ plt.setp(plt.getp(cbar.ax.axes, 'xticklabels'), color='white')
 col1, col2 = st.columns(2)
 col1.pyplot(fig)
 
-with st.expander("change max. and min. values for the colorbar\nPlease press the 'change' button twice"):
+with st.expander("Change max. and min. values for the colorbar.\nPlease press the 'change' button twice."):
     col1, col2 = st.columns(2)
     strain_max = float(col1.text_input('max.', '1e-6', label_visibility="hidden")) #col2.number_input('max.', value=4e-6)
 
