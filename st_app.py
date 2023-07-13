@@ -104,7 +104,7 @@ for i in range(len(lons)):
     #lon, lat = lons[i], lats[i]
     #df = pd.DataFrame({'lon': [lon], 'lat': [lat]})
     
-    if currdate.strftime("%Y%m%d")=='20150101':
+    if currdate.strftime("%Y%m%d")==refday.strftime("%Y%m%d"):
         if strains[i]==strains[i]:
             idx = (strains[i]-st.session_state['strain_min'])/(st.session_state['strain_max']-st.session_state['strain_min']) 
             
